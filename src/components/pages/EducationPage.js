@@ -199,7 +199,7 @@ export default function EducationPage() {
         <button
           data-cy="education-next-btn"
           onClick={() => alert("Next button clicked")}
-          className={styles.addButton}
+          className="MuiButton-contained makeStyles-footer-15"
         >
           Next
         </button>
