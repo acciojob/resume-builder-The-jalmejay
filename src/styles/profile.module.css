@@ -1,0 +1,42 @@
+.profilePage {
+    width: 95%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.heading {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #b0b0b0;
+}
+
+.formContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.formInput {
+    width: 650px;
+    height: 60px;
+    color: #b0b0b0;
+    border-radius: 5px;
+    border: 2px solid #b0b0b0;
+    font-size: 25px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.ProfileImage {
+    text-align: left;
+    margin-top: 30px;
+    padding-left: 26px;
+}
+
+.pILabel {
+    font-size: 25px;
+    text-align: left;
+
+}
