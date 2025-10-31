@@ -21,6 +21,7 @@ export default function SkillsPage() {
       className={styles.formInput}
         name="skill"
         value={skill}
+        data-cy={`skill-${skill.id}`}
         onChange={(e) => setSkill(e.target.value)}
         placeholder="Skill *"
       />

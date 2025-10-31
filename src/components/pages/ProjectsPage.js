@@ -114,14 +114,14 @@ export default function ProjectsPage() {
         </div>
 
         <div className={styles.formGroup}>
-          <input
+          <textarea
             type="text"
             name="description"
             value={form.description}
             onChange={handleChange}
             className={styles.formInput}
             placeholder="Description"
-          />
+          ></textarea>
         </div>
       </div>
       <div className={styles.buttonList}>

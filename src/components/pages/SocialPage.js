@@ -63,7 +63,7 @@ export default function SocialPage() {
         <div className={styles.formGroup}>
           <input
             type="url"
-            name="social"
+            name="Social"
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="Social Link *"
