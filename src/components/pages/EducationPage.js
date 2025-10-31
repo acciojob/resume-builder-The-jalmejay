@@ -124,7 +124,7 @@ export default function EducationPage() {
       alert("Please fill all fields before adding.");
       return;
     }
-
+    alert("your data is save");
     dispatch(addEducation(form));
     // setForm({
     //   courseName: "",
@@ -196,9 +196,14 @@ export default function EducationPage() {
         >
           Add Education
         </button>
+        <button
+          data-cy="education-next-btn"
+          onClick={() => alert("Next button clicked")}
+          className={styles.addButton}
+        >
+          Next
+        </button>
       </div>
-
-
     </div>
   );
 }
