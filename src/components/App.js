@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import "./../styles/App.css";
 import Navber from "./Navber";
 import { useSelector, useDispatch } from "react-redux";
-import ProfilePage from "./pages/ProfilePage";
-import EducationPage from "./pages/EducationPage";
-import SkillsPage from "./pages/SkillsPage";
-import ProjectsPage from "./pages/ProjectsPage";
-import SocialPage from "./pages/SocialPage";
-import PreviewPage from "./pages/PreviewPage";
+import ProfilePage from "./pages/Profile";
+import EducationPage from "./pages/Education";
+import SkillsPage from "./pages/Skills";
+import ProjectsPage from "./pages/Projects";
+import SocialPage from "./pages/Social";
+import PreviewPage from "./pages/Preview";
 import { preview } from "../slice/resumeSlice";
 import {
   goBack,

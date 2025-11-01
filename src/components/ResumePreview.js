@@ -9,7 +9,7 @@ export default function ResumePreview() {
   const dispatch = useDispatch();
   const resumeRef = useRef();
   const resume = useSelector((s) => s.resume);
-  const { profile, education, skills, projects, Social } = resume;
+  const { profile, education, skills, projects, social } = resume;
   function handleReset() {
     dispatch(reset());
   }
@@ -113,7 +113,7 @@ export default function ResumePreview() {
           <section className={styles.section}>
             <h2>Social Links</h2>
             <ul>
-              {Social.map((s, i) => (
+              {social.map((s, i) => (
                 <li key={i}>
                   {console.log(s)}
                   <a href={s} target="_blank" rel="noopener noreferrer">

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice,nanoid } from '@reduxjs/toolkit';
 
 const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 
