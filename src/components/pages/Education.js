@@ -191,6 +191,7 @@ export default function EducationPage() {
         </button>
         <button
           id="add_education"
+          type="button"
           onClick={handleAdd}
           className={styles.addButton}
         >
