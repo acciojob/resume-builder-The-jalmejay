@@ -197,13 +197,15 @@ export default function EducationPage() {
         >
           Add Education
         </button>
-        <button
-          data-cy="education-next-btn"
-          onClick={() => alert("Next button clicked")}
-          className="MuiButton-contained makeStyles-footer-15"
-        >
-          Next
-        </button>
+        <div className="makeStyles-footer-15">
+          <button
+            data-cy="education-next-btn"
+            onClick={() => alert("Next button clicked")}
+            className="MuiButton-contained"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
