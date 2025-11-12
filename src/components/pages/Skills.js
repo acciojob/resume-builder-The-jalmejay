@@ -10,6 +10,7 @@ export default function SkillsPage() {
 
   function handleAdd() {
     if (!skill.trim()) return;
+    // dispatch a plain string; your slice should add id on reducer side
     dispatch(addSkill(skill.trim()));
     setSkill("");
   }
@@ -17,27 +18,43 @@ export default function SkillsPage() {
   return (
     <div className={styles.skillPage}>
       <h2 className={styles.heading}>Add Your Skills</h2>
+
+      {/* stable selector for tests to type into */}
       <input
-      className={styles.formInput}
+        className={styles.formInput}
         name="skill"
         value={skill}
-        data-cy={`skill-${skill.id}`}
+        data-cy="skill-input"
         onChange={(e) => setSkill(e.target.value)}
         placeholder="Skill *"
       />
 
       <div className={styles.buttonList}>
-        <button className={styles.deleteButton} id="delete" onClick={()=>setSkill("")}>Delete</button>
-      <button className={styles.addButton} id="add_skill" onClick={handleAdd}>
-        Add Skill
-      </button>
+        {/* use data-cy for test selection if needed */}
+        <button
+          className={styles.deleteButton}
+          data-cy="skill-clear"
+          onClick={() => setSkill("")}
+        >
+          Delete
+        </button>
+
+        <button
+          className={styles.addButton}
+          data-cy="add-skill"
+          onClick={handleAdd}
+        >
+          Add Skill
+        </button>
       </div>
+
       <ul>
         {skills.map((s) => (
-          <li key={s.id}>
+          // ensure list items expose a stable data-cy like "skill-<id>"
+          <li key={s.id} data-cy={`skill-${s.id}`}>
             {s.skill}{" "}
             <button
-              id="delete_skill"
+              data-cy={`delete-skill-${s.id}`}
               onClick={() => dispatch(deleteSkill(s.id))}
             >
               Delete
