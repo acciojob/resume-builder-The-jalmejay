@@ -42,6 +42,7 @@ export default function SkillsPage() {
         <button
           className={styles.addButton}
           data-cy="add-skill"
+          id="#add_skill"
           onClick={handleAdd}
         >
           Add Skill
