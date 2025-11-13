@@ -4,14 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { addSkill, deleteSkill } from "../../slice/resumeSlice";
 
 export default function SkillsPage() {
-  const skills = useSelector((s) => s.resume.skills);
+  const skills = useSelector((s) => (s.resume && Array.isArray(s.resume.skills) ? s.resume.skills : []));
   const dispatch = useDispatch();
   const [skill, setSkill] = React.useState("");
 
   function handleAdd() {
     if (!skill.trim()) return;
-    // dispatch a plain string; your slice should add id on reducer side
-    dispatch(addSkill(skill.trim()));
+    dispatch(addSkill(skill.trim())); // reducer will assign numeric id
     setSkill("");
   }
 
@@ -19,7 +18,7 @@ export default function SkillsPage() {
     <div className={styles.skillPage}>
       <h2 className={styles.heading}>Add Your Skills</h2>
 
-      {/* stable selector for tests to type into */}
+      {/* input uses skill-input so Cypress targets the correct input */}
       <input
         className={styles.formInput}
         name="skill"
@@ -30,13 +29,12 @@ export default function SkillsPage() {
       />
 
       <div className={styles.buttonList}>
-        {/* use data-cy for test selection if needed */}
         <button
           className={styles.deleteButton}
           data-cy="skill-clear"
           onClick={() => setSkill("")}
         >
-          Delete
+          Clear
         </button>
 
         <button
@@ -50,10 +48,10 @@ export default function SkillsPage() {
       </div>
 
       <ul>
-        {skills.map((s,index) => (
-          // ensure list items expose a stable data-cy like "skill-<id>"
-          <li key={index} data-cy={`skill-${s.id}`}>
-            {s.id}. {s.skill}
+        {skills.map((s) => (
+          // expose id visibly and provide data-cy so Cypress finds "1"
+          <li key={s.id} data-cy={`skill-${s.id}`}>
+            {s.id}. {s.skill}{" "}
             <button
               data-cy={`delete-skill-${s.id}`}
               onClick={() => dispatch(deleteSkill(s.id))}
