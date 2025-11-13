@@ -24,7 +24,7 @@ export default function SkillsPage() {
         className={styles.formInput}
         name="skill"
         value={skill}
-        data-cy="skill-1"
+        data-cy="skill-input"
         onChange={(e) => setSkill(e.target.value)}
         placeholder="Skill *"
       />
@@ -53,7 +53,7 @@ export default function SkillsPage() {
         {skills.map((s,index) => (
           // ensure list items expose a stable data-cy like "skill-<id>"
           <li key={index} data-cy={`skill-${s.id}`}>
-            {s.skill}{" "}
+            {s.id}. {s.skill}
             <button
               data-cy={`delete-skill-${s.id}`}
               onClick={() => dispatch(deleteSkill(s.id))}

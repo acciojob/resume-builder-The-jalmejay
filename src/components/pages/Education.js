@@ -348,8 +348,8 @@ export default function EducationPage() {
       {Array.isArray(education) && education.length > 0 && (
         <ul className={styles.educationList} data-cy="education-list">
           {education.map((e) => (
-            <li key={e.id || `${e.courseName}-${e.completionYear}`}>
-              <strong>{e.courseName}</strong> — {e.college} ({e.completionYear}){" "}
+            <li key={e.id || `${e.courseName}-${e.completionYear}`} data-cy={`education-${e.id}`}>
+              {e.id}. <strong>{e.courseName}</strong> — {e.college} ({e.completionYear}){" "}
               {e.percentage}
               <button
                 onClick={() => {
