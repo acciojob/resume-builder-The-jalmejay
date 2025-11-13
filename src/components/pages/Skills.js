@@ -50,9 +50,9 @@ export default function SkillsPage() {
       </div>
 
       <ul>
-        {skills.map((s) => (
+        {skills.map((s,index) => (
           // ensure list items expose a stable data-cy like "skill-<id>"
-          <li key={s.id} data-cy={`skill-${s.id}`}>
+          <li key={index} data-cy={`skill-${s.id}`}>
             {s.skill}{" "}
             <button
               data-cy={`delete-skill-${s.id}`}

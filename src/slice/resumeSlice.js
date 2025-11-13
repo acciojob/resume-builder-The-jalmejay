@@ -1,6 +1,4 @@
-import { createSlice,nanoid } from '@reduxjs/toolkit';
-
-const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   page: 0,
@@ -12,10 +10,19 @@ const initialState = {
     img: '',
     url: '',
   },
+
   education: [],
+  nextEducationId: 1,
+
   skills: [],
+  nextSkillId: 1,
+
   projects: [],
+  nextProjectId: 1,
+
   social: [],
+  nextSocialId: 1,
+
   mode: "edit",
 };
 
@@ -23,17 +30,19 @@ const resumeSlice = createSlice({
   name: 'resume',
   initialState,
   reducers: {
+    // Profile
     setProfile(state, action) {
       state.profile = { ...state.profile, ...action.payload };
     },
 
-    // Education
+    // ----------------- EDUCATION -----------------
     addEducation: {
       reducer(state, action) {
-        state.education.push(action.payload);
+        const id = state.nextEducationId++;
+        state.education.push({ id, ...action.payload });
       },
       prepare(payload) {
-        return { payload: { id: generateId(), ...payload } };
+        return { payload }; // no ID here
       },
     },
     updateEducation(state, action) {
@@ -44,26 +53,28 @@ const resumeSlice = createSlice({
       state.education = state.education.filter(e => e.id !== action.payload);
     },
 
-    // Skills
+    // ----------------- SKILLS -----------------
     addSkill: {
       reducer(state, action) {
-        state.skills.push(action.payload);
+        const id = state.nextSkillId++;
+        state.skills.push({ id, skill: action.payload });
       },
       prepare(skill) {
-        return { payload: { id: generateId(), skill } };
+        return { payload: skill };
       },
     },
     deleteSkill(state, action) {
       state.skills = state.skills.filter(s => s.id !== action.payload);
     },
 
-    // Projects
+    // ----------------- PROJECTS -----------------
     addProject: {
       reducer(state, action) {
-        state.projects.push(action.payload);
+        const id = state.nextProjectId++;
+        state.projects.push({ id, ...action.payload });
       },
       prepare(payload) {
-        return { payload: { id: generateId(), ...payload } };
+        return { payload };
       },
     },
     updateProject(state, action) {
@@ -74,20 +85,21 @@ const resumeSlice = createSlice({
       state.projects = state.projects.filter(p => p.id !== action.payload);
     },
 
-    // Social
+    // ----------------- SOCIAL -----------------
     addSocial: {
       reducer(state, action) {
-        state.social.push(action.payload);
+        const id = state.nextSocialId++;
+        state.social.push({ id, ...action.payload });
       },
       prepare(payload) {
-        return { payload: { id: generateId(), ...payload } };
+        return { payload };
       },
     },
     deleteSocial(state, action) {
       state.social = state.social.filter(s => s.id !== action.payload);
     },
 
-    // Navigation
+    // ----------------- PAGE / NAVIGATION -----------------
     goNext(state) {
       if (state.page < 4) state.page += 1;
     },
@@ -98,7 +110,7 @@ const resumeSlice = createSlice({
       state.page = action.payload;
     },
 
-    // Local Storage
+    // ----------------- LOCAL STORAGE -----------------
     saveToLocal(state) {
       try {
         localStorage.setItem('resumeData', JSON.stringify(state));
@@ -109,13 +121,13 @@ const resumeSlice = createSlice({
       try {
         const raw = localStorage.getItem('resumeData');
         if (raw) {
-          const parsed = JSON.parse(raw);
-          return { ...state, ...parsed };
+        const parsed = JSON.parse(raw);
+        return { ...state, ...parsed };
         }
       } catch (e) {}
     },
 
-    // Reset / Modes
+    // ----------------- RESET / MODE -----------------
     reset() {
       return initialState;
     },
@@ -133,18 +145,24 @@ export const {
   addEducation,
   updateEducation,
   deleteEducation,
+
   addSkill,
   deleteSkill,
+
   addProject,
   updateProject,
   deleteProject,
+
   addSocial,
   deleteSocial,
+
   goNext,
   goBack,
   gotoPage,
+
   saveToLocal,
   loadFromLocal,
+
   reset,
   edit,
   preview,
