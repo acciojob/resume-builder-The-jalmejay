@@ -1,13 +1,10 @@
-// src/components/pages/Social.js
 import React from "react";
 import styles from "../../styles/social.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addSocial, deleteSocial } from "../../slice/resumeSlice";
 
 export default function SocialPage() {
-  const social = useSelector((s) =>
-    s.resume && Array.isArray(s.resume.social) ? s.resume.social : []
-  );
+  const social = useSelector((s) => (s.resume && Array.isArray(s.resume.social) ? s.resume.social : []));
   const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
 
@@ -19,9 +16,7 @@ export default function SocialPage() {
 
   return (
     <div className={styles.skillsocial}>
-      <h2 className={styles.heading}>
-        Add Social Links like Linkedin, github, etc
-      </h2>
+      <h2 className={styles.heading}>Add Social Links like Linkedin, github, etc</h2>
 
       <div className={styles.formContainer}>
         <div className={styles.formGroup}>
@@ -38,36 +33,19 @@ export default function SocialPage() {
       </div>
 
       <div className={styles.buttonList}>
-        <button
-          className={styles.deleteButton}
-          id="delete"
-          onClick={() => setValue("")}
-          data-cy="social-clear"
-        >
+        <button className={styles.deleteButton} id="delete" onClick={() => setValue("")} data-cy="social-clear">
           Delete
         </button>
-        <button
-          className={styles.addButton}
-          id="add_social"
-          onClick={handleAdd}
-          data-cy="add_social"
-        >
+        <button className={styles.addButton} id="add_social" onClick={handleAdd} data-cy="add_social">
           Add Social
         </button>
       </div>
 
       <ul className={styles.formContainer} data-cy="social-list">
         {social.map((s) => (
-          <li
-            key={s.id}
-            className={styles.projectCard}
-            data-cy={`social-${s.id}`}
-          >
+          <li key={s.id} className={styles.projectCard} data-cy={`social-${s.id}`}>
             {s.id}. {s.label || s.url}
-            <button
-              data-cy={`delete-social-${s.id}`}
-              onClick={() => dispatch(deleteSocial(s.id))}
-            >
+            <button data-cy={`delete-social-${s.id}`} onClick={() => dispatch(deleteSocial(s.id))}>
               Delete
             </button>
           </li>

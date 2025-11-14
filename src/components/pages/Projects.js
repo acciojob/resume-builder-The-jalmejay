@@ -1,13 +1,10 @@
-// src/components/pages/Projects.js
 import React from "react";
 import styles from "../../styles/project.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addProject, deleteProject } from "../../slice/resumeSlice";
 
 export default function ProjectsPage() {
-  const projects = useSelector((s) =>
-    s.resume && Array.isArray(s.resume.projects) ? s.resume.projects : []
-  );
+  const projects = useSelector((s) => (s.resume && Array.isArray(s.resume.projects) ? s.resume.projects : []));
   const dispatch = useDispatch();
   const [form, setForm] = React.useState({
     projectName: "",
@@ -77,37 +74,22 @@ export default function ProjectsPage() {
         <button
           className={styles.deleteButton}
           id="delete"
-          onClick={() =>
-            setForm({ projectName: "", techStack: "", description: "" })
-          }
+          onClick={() => setForm({ projectName: "", techStack: "", description: "" })}
           data-cy="project-clear"
         >
           DELETE
         </button>
-        <button
-          className={styles.addButton}
-          id="add_project"
-          onClick={handleAdd}
-          data-cy="add_project"
-        >
+        <button className={styles.addButton} id="add_project" onClick={handleAdd} data-cy="add_project">
           ADD PROJECT
         </button>
       </div>
 
       <ul className={styles.formContainer} data-cy="project-list">
         {projects.map((p) => (
-          <li
-            key={p.id}
-            className={styles.formGroup}
-            data-cy={`project-${p.id}`}
-          >
+          <li key={p.id} className={styles.formGroup} data-cy={`project-${p.id}`}>
             {p.id}. <strong>{p.name}</strong> — {p.techStack}
             <p>{p.description}</p>
-            <button
-              className={styles.formInput}
-              data-cy={`delete-project-${p.id}`}
-              onClick={() => dispatch(deleteProject(p.id))}
-            >
+            <button className={styles.formInput} data-cy={`delete-project-${p.id}`} onClick={() => dispatch(deleteProject(p.id))}>
               Delete
             </button>
           </li>

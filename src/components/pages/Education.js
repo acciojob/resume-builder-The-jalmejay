@@ -1,4 +1,3 @@
-// src/components/pages/Education.js
 import React, { useState } from "react";
 import styles from "../../styles/education.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,15 +26,7 @@ export default function EducationPage() {
   }
 
   function handleAdd() {
-    if (
-      !form.courseName ||
-      !form.college ||
-      !form.completionYear ||
-      !form.percentage
-    ) {
-      // keep UX simple for tests
-      return;
-    }
+    if (!form.courseName || !form.college || !form.completionYear || !form.percentage) return;
     dispatch(
       addEducation({
         college: form.college,
@@ -44,24 +35,14 @@ export default function EducationPage() {
         percentage: form.percentage,
       })
     );
-    setForm({
-      courseName: "",
-      completionYear: "",
-      college: "",
-      percentage: "",
-    });
+    setForm({ courseName: "", completionYear: "", college: "", percentage: "" });
   }
 
   function handleClearForm() {
-    setForm({
-      courseName: "",
-      completionYear: "",
-      college: "",
-      percentage: "",
-    });
+    setForm({ courseName: "", completionYear: "", college: "", percentage: "" });
   }
 
-  // When local Next is clicked, click global #next so tests advance reliably
+  // local Next clicks global #next if present (used by tests)
   function handleLocalNext() {
     const globalNext = document.getElementById("next");
     if (globalNext) globalNext.click();
@@ -69,7 +50,7 @@ export default function EducationPage() {
 
   return (
     <div className={styles.educationPage} data-cy="education-step">
-      {/* exact wrapper & footer structure expected by Cypress selectors */}
+      {/* exact wrapper structure for Cypress */}
       <div className="makeStyles-instance-16" data-cy="education-step-wrapper">
         <div data-cy="education-step-number">1</div>
         <div className="makeStyles-footer-15" data-cy="education-footer">
@@ -150,22 +131,17 @@ export default function EducationPage() {
         <ul className={styles.educationList} data-cy="education-list">
           {education.map((e) => (
             <li key={e.id} data-cy={`education-${e.id}`}>
-              {e.id}. <strong>{e.courseName}</strong> — {e.college} (
-              {e.completionYear}) {e.percentage}
+              {e.id}. <strong>{e.courseName}</strong> — {e.college} ({e.completionYear}) {e.percentage}
               <button
                 onClick={() => {
                   const updated = prompt("Edit course name", e.courseName);
-                  if (updated != null)
-                    dispatch(updateEducation({ ...e, courseName: updated }));
+                  if (updated != null) dispatch(updateEducation({ ...e, courseName: updated }));
                 }}
                 data-cy={`education-edit-${e.id}`}
               >
                 Edit
               </button>
-              <button
-                onClick={() => dispatch(deleteEducation(e.id))}
-                data-cy={`education-delete-${e.id}`}
-              >
+              <button onClick={() => dispatch(deleteEducation(e.id))} data-cy={`education-delete-${e.id}`}>
                 Delete
               </button>
             </li>

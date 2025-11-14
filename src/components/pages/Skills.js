@@ -1,20 +1,17 @@
-// src/components/pages/Skills.js
 import React from "react";
 import styles from "../../styles/skill.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addSkill, deleteSkill } from "../../slice/resumeSlice";
 
 export default function SkillsPage() {
-  const skills = useSelector((s) =>
-    s.resume && Array.isArray(s.resume.skills) ? s.resume.skills : []
-  );
+  const skills = useSelector((s) => (s.resume && Array.isArray(s.resume.skills) ? s.resume.skills : []));
   const dispatch = useDispatch();
   const [skill, setSkill] = React.useState("");
 
   function handleAdd() {
     const text = skill.trim();
     if (!text) return;
-    dispatch(addSkill(text)); // reducer generates numeric id
+    dispatch(addSkill(text));
     setSkill("");
   }
 
@@ -32,20 +29,11 @@ export default function SkillsPage() {
       />
 
       <div className={styles.buttonList}>
-        <button
-          className={styles.deleteButton}
-          data-cy="skill-clear"
-          onClick={() => setSkill("")}
-        >
+        <button className={styles.deleteButton} data-cy="skill-clear" onClick={() => setSkill("")}>
           Clear
         </button>
 
-        <button
-          className={styles.addButton}
-          data-cy="add_skill"
-          id="add_skill"
-          onClick={handleAdd}
-        >
+        <button className={styles.addButton} data-cy="add_skill" id="add_skill" onClick={handleAdd}>
           Add Skill
         </button>
       </div>
@@ -54,10 +42,7 @@ export default function SkillsPage() {
         {skills.map((s) => (
           <li key={s.id} data-cy={`skill-${s.id}`}>
             {s.id}. {s.skill}
-            <button
-              data-cy={`delete-skill-${s.id}`}
-              onClick={() => dispatch(deleteSkill(s.id))}
-            >
+            <button data-cy={`delete-skill-${s.id}`} onClick={() => dispatch(deleteSkill(s.id))}>
               Delete
             </button>
           </li>
