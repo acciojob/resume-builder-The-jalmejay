@@ -1,10 +1,13 @@
+// src/components/pages/Projects.js
 import React from "react";
 import styles from "../../styles/project.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addProject, deleteProject } from "../../slice/resumeSlice";
 
 export default function ProjectsPage() {
-  const projects = useSelector((s) => (s.resume && Array.isArray(s.resume.projects) ? s.resume.projects : []));
+  const projects = useSelector((s) =>
+    s.resume && Array.isArray(s.resume.projects) ? s.resume.projects : []
+  );
   const dispatch = useDispatch();
   const [form, setForm] = React.useState({
     projectName: "",
@@ -14,12 +17,13 @@ export default function ProjectsPage() {
 
   function handleAdd() {
     if (!form.projectName || !form.techStack) return;
-    // map local names to slice keys expected by preview / slice
-    dispatch(addProject({
-      name: form.projectName,
-      techStack: form.techStack,
-      description: form.description,
-    }));
+    dispatch(
+      addProject({
+        name: form.projectName,
+        techStack: form.techStack,
+        description: form.description,
+      })
+    );
     setForm({ projectName: "", techStack: "", description: "" });
   }
 
@@ -68,11 +72,14 @@ export default function ProjectsPage() {
           />
         </div>
       </div>
+
       <div className={styles.buttonList}>
         <button
           className={styles.deleteButton}
           id="delete"
-          onClick={() => setForm({ projectName: "", techStack: "", description: "" })}
+          onClick={() =>
+            setForm({ projectName: "", techStack: "", description: "" })
+          }
           data-cy="project-clear"
         >
           DELETE
@@ -86,12 +93,21 @@ export default function ProjectsPage() {
           ADD PROJECT
         </button>
       </div>
+
       <ul className={styles.formContainer} data-cy="project-list">
         {projects.map((p) => (
-          <li key={p.id} className={styles.formGroup} data-cy={`project-${p.id}`}>
+          <li
+            key={p.id}
+            className={styles.formGroup}
+            data-cy={`project-${p.id}`}
+          >
             {p.id}. <strong>{p.name}</strong> — {p.techStack}
             <p>{p.description}</p>
-            <button className={styles.formInput} onClick={() => dispatch(deleteProject(p.id))} data-cy={`delete-project-${p.id}`}>
+            <button
+              className={styles.formInput}
+              data-cy={`delete-project-${p.id}`}
+              onClick={() => dispatch(deleteProject(p.id))}
+            >
               Delete
             </button>
           </li>

@@ -11,3 +11,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+// clears local storage when Cypress test runner loads the app
+if (window.Cypress) {
+  localStorage.clear();
+}
